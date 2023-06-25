@@ -4,6 +4,7 @@ const dbConnect = async () =>
 {
     try
     {
+        mongoose.set("strictQuery",false);
         const connected = await mongoose.connect(process.env.MONGO_URL+'/Flex');
         console.log(`MongoDB connected ${connected.connection.host}`);
     }
