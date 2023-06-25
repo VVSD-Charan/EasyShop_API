@@ -6,3 +6,11 @@ export const globalErrHandler = (err,req,res,next) =>
 
     res.status(statusCode).json({stack,message});
 }
+
+// 404  Handler
+
+export const notFound = (req,res,next) => 
+{
+    const err = new Error(`Page ${req.originalUrl} not found`);
+    next(err);
+};
