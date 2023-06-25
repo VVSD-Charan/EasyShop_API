@@ -1,4 +1,5 @@
 import User from "../model/User.js";
+import  asyncHandler from 'express-async-handler';
 import bcrypt from 'bcryptjs';
 
 // Register user router route end point : POST /api/v1/users/register
@@ -44,24 +45,25 @@ export const registerUserCtrl = async( req , res) =>
 };
 
 // Login user router route end point : POST /api/v1/users/login
-export const loginUserCtrl = async (req , res) =>
-{
-    const {email,password}=req.body;
-
-    const userFound = await User.findOne({email});
-
-    if(userFound && await bcrypt.compare(password,userFound.password))
+export const loginUserCtrl = asyncHandler
+(
+    async (req , res) =>
     {
-        res.json({
-            status : "success" ,
-            message : "Logged in succesfully !",
-            userFound
-        });
+        const {email,password}=req.body;
+
+        const userFound = await User.findOne({email});
+
+        if(userFound && await bcrypt.compare(password,userFound.password))
+        {
+            res.json({
+                status : "success" ,
+                message : "Logged in succesfully !",
+                userFound
+            });
+        }
+        else
+        {
+            throw new Error("Invalid login credentials");
+        }
     }
-    else
-    {
-        res.json({
-            msg : "Invalid Login credentials"
-        });
-    }
-}
+)
