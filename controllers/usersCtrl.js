@@ -3,46 +3,41 @@ import  asyncHandler from 'express-async-handler';
 import bcrypt from 'bcryptjs';
 
 // Register user router route end point : POST /api/v1/users/register
-export const registerUserCtrl = async( req , res) =>
-{
-   const { fullname,email,password } = req.body;
-
-   //Check if user exists
-   const userExists = await User.findOne({ email });
-
-   if(userExists)
-   {
-      // Then user cannot register again
-      res.json(
-        {
-            msg : `User already exists with email ${email}`
-        }
-      )
-   }
-
-   // If this mail is not used , register user
-   // Hash password and register user
-   const salt = await bcrypt.genSalt(10);
-   const hashedPassword = await bcrypt.hash(password,salt);
-
-   // Add new user to DB
-   const user = await User.create(
+export const registerUserCtrl = asyncHandler(
+    async( req , res) =>
     {
-        fullname,
-        email,
-        password : hashedPassword,
-    }
-   ).then(()=>
-   {
-    console.log("Data inserted");
-   });
+        const { fullname,email,password } = req.body;
+
+        //Check if user exists
+        const userExists = await User.findOne({ email });
+
+        if(userExists)
+        {
+            // Then user cannot register again
+            throw new Error("A user already exists with this email");
+        }
+
+        // If this mail is not used , register user
+        // Hash password and register user
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password,salt);
+
+        // Add new user to DB
+        const user = await User.create(
+        {
+            fullname,
+            email,
+            password : hashedPassword,
+        }
+   );
 
    res.status(201).json({
      status : "success",
      message : "User registered succesfully",
      data : user,
    });
-};
+}
+);
 
 // Login user router route end point : POST /api/v1/users/login
 export const loginUserCtrl = asyncHandler
