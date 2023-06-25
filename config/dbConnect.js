@@ -4,7 +4,7 @@ const dbConnect = async () =>
 {
     try
     {
-        const connected = await mongoose.connect(process.env.MONGO_URL);
+        const connected = await mongoose.connect(process.env.MONGO_URL+'/Flex');
         console.log(`MongoDB connected ${connected.connection.host}`);
     }
     catch(error)
