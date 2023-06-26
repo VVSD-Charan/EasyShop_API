@@ -45,4 +45,16 @@ export const createProductCtrl = asyncHandler(
             product,
         })
     }
+);
+
+export const getProductsCtrl = asyncHandler(
+    async (req , res) =>
+    {
+        const products = await Product.find();
+
+        res.json({
+            status : "success",
+            products
+        })
+    }
 )
