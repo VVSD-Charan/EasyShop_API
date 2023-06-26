@@ -92,6 +92,19 @@ export const getProductsCtrl = asyncHandler(
             })
         }
 
+        //filter by price range
+        //Price range url end point is {BaseURL}/products/price=a-b
+        if(req.query.price)
+        {
+            //Split a-b with - to get a and b
+            const priceRange = req.query.price.split("-");
+            console.log(priceRange[0],priceRange[1]);
+            productQuery=productQuery.find({
+                price : { $gte: priceRange[0] , $lte : priceRange[1]}
+            });
+        }
+
+
         const products = await productQuery;
 
         res.json({
