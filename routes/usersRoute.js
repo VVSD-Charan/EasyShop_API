@@ -1,9 +1,14 @@
 import express from 'express';
-import { loginUserCtrl, registerUserCtrl } from '../controllers/usersCtrl.js';
+import { 
+    loginUserCtrl, 
+    registerUserCtrl ,
+    getUserProfileCtrl
+} from '../controllers/usersCtrl.js';
 
 const userRoutes = express.Router();
 
-userRoutes.post('/api/v1/users/register' , registerUserCtrl);
-userRoutes.post('/api/v1/users/login',loginUserCtrl);
+userRoutes.post('/register' , registerUserCtrl);
+userRoutes.post('/login',loginUserCtrl);
+userRoutes.get('/profile',getUserProfileCtrl);
 
 export default userRoutes;

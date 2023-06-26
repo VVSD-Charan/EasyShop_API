@@ -12,7 +12,7 @@ const app =express();
 //Pass incoming data
 app.use(express.json());
 
-app.use("/",userRoutes);
+app.use("/api/v1/users/",userRoutes);
 
 app.use(notFound);
 app.use(globalErrHandler);
