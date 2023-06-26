@@ -50,6 +50,8 @@ export const loginUserCtrl = asyncHandler
         const {email,password}=req.body;
 
         const userFound = await User.findOne({email});
+        const generatedToken = generateToken(userFound?._id);
+        console.log(generatedToken);
 
         if(userFound && await bcrypt.compare(password,userFound.password))
         {
@@ -57,7 +59,7 @@ export const loginUserCtrl = asyncHandler
                 status : "success" ,
                 message : "Logged in succesfully !",
                 userFound,
-                token : generateToken(userFound?._id)
+                token : generatedToken,
             });
         }
         else
