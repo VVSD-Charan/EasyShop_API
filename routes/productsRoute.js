@@ -2,7 +2,8 @@ import express from 'express';
 import { createProductCtrl, 
     getProductsCtrl,
     getProductCtrl,
-    updateProductCtrl
+    updateProductCtrl,
+    deleteProductCtrl
 } from '../controllers/productsCtrl.js';
 import { isLoggedIn } from '../middlewares/isLoggedIn.js';
 
@@ -12,5 +13,6 @@ productsRouter.post('/' , isLoggedIn ,createProductCtrl);
 productsRouter.get('/' , getProductsCtrl);
 productsRouter.get('/:id', getProductCtrl);
 productsRouter.put('/:id', isLoggedIn , updateProductCtrl);
+productsRouter.delete('/:id/delete' , isLoggedIn , deleteProductCtrl);
 
 export default productsRouter;
