@@ -51,7 +51,6 @@ export const loginUserCtrl = asyncHandler
 
         const userFound = await User.findOne({email});
         const generatedToken = generateToken(userFound?._id);
-        console.log(generatedToken);
 
         if(userFound && await bcrypt.compare(password,userFound.password))
         {
