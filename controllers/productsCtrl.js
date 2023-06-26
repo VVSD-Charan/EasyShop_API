@@ -98,7 +98,6 @@ export const getProductsCtrl = asyncHandler(
         {
             //Split a-b with - to get a and b
             const priceRange = req.query.price.split("-");
-            console.log(priceRange[0],priceRange[1]);
             productQuery=productQuery.find({
                 price : { $gte: priceRange[0] , $lte : priceRange[1]}
             });
