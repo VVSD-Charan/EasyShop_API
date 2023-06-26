@@ -2,6 +2,8 @@ import User from "../model/User.js";
 import  asyncHandler from 'express-async-handler';
 import bcrypt from 'bcryptjs';
 import generateToken from "../utils/generateToken.js";
+import { getTokenFromHeader } from "../utils/getTokenFromHeader.js";
+import { verifyToken } from "../utils/verifyToken.js";
 
 // Register user router route end point : POST /api/v1/users/register
 export const registerUserCtrl = asyncHandler(
@@ -68,6 +70,9 @@ export const loginUserCtrl = asyncHandler
 export const getUserProfileCtrl = asyncHandler(
     async (req , res) =>
     {
+        const token = getTokenFromHeader(req);
+        const verified = verifyToken(token);
+
         res.json(
             {
                 msg : "Welcome to profile page!"
