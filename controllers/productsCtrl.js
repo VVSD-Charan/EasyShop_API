@@ -103,12 +103,103 @@ export const getProductsCtrl = asyncHandler(
             });
         }
 
+        //Pagination
+        //Page numbers in products (default is 1)
+        const page = parseInt(req.query.page)? parseInt(req.query.page):1;
+        //Limit to number of products per page
+        const limit=parseInt(req.query.limit)? parseInt(req.query.limit):10;
+        // Start index of product in a page
+        const startIndex = (page-1)*limit;
+        //End index of product in a page
+        const endIndex = (page*limit);
+        //Total number of documents
+        const total = await Product.countDocuments();
 
+        //Pagination results
+        const pagination = {};
+
+        if(endIndex < total)
+        {
+            pagination.next = {
+                page : page+1 ,
+                limit 
+            };
+        }
+
+        if(startIndex > 0)
+        {
+            pagination.next = {
+                page : page-1 ,
+                limit
+            };
+        }
+
+        productQuery=productQuery.skip(startIndex).limit(limit);
         const products = await productQuery;
 
         res.json({
             status : "success",
+            total,
+            results : products.length,
+            pagination,
+            message : "Products fetched succesfully",
             products
+        });
+    }
+);
+
+export const getProductCtrl = asyncHandler(
+    async (req , res) =>
+    {
+        const product = await Product.findById(req.params.id);
+
+        if(!product)
+        {
+            throw new Error(`There is not product with id ${req.params.id}`)
+        }
+
+        res.json({
+            status : "success",
+            message : "Product fetched successfully",
+            product
         })
     }
-)
+); 
+
+export const updateProductCtrl = asyncHandler(
+    async (req , res) =>
+    {
+        const {
+            name,
+            description,
+            category,
+            sizes,
+            colors,
+            user,
+            price,
+            brand,
+            totalQty
+        } = req.body;
+
+        //Update product
+        const product = await Product.findByIdAndUpdate(req.params.id , {
+            name,
+            description,
+            category,
+            sizes,
+            colors,
+            user,
+            price,
+            brand,
+            totalQty 
+        },{
+            new:true
+        });
+
+        res.json({
+            status : "success",
+            message : "Product updated successfully",
+            product,
+        });
+    }
+);
