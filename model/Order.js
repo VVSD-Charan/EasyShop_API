@@ -38,7 +38,7 @@ const orderSchema = new Schema({
     },
     totalPrice :{
         type : Number,
-        default : 0
+        default : 0.0
     },
     currency : {
         type : String,

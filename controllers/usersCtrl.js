@@ -80,4 +80,41 @@ export const getUserProfileCtrl = asyncHandler(
             }
         )
     }
-)
+);
+
+// API end point to update shipping address PUT /api/v1/users/update/shipping
+export const updateShippingAddressCtrl = asyncHandler(
+    async(req , res) =>
+    {
+        const {
+            firstName,
+            lastName,
+            address,
+            city,
+            postalCode,
+            province,
+            phone
+        } = req.body;
+
+        const user = await User.findByIdAndUpdate(req.userAuthId,{
+            shippingAddress : {
+                firstName,
+                lastName,
+                address,
+                city,
+                postalCode,
+                province,
+                phone
+            },
+            hasShippingAddress : true
+        },{
+            new:true
+        });
+
+        res.json({
+            status : "success",
+            mesage : "Shipping address has been updated",
+            user
+        })
+    }
+);
