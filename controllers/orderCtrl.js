@@ -1,7 +1,13 @@
 import asyncHandler from 'express-async-handler';
+import dotenv from 'dotenv';
+dotenv.config();
+import Stripe from 'stripe';
 import Order from "../model/Order.js";
 import User from '../model/User.js';
 import Product from '../model/Product.js';
+
+//Stripe instance
+const stripe = new Stripe(process.env.STRIPE_KEY);
 
 //Endpoint for orders /api/v1/orders
 export const createOrderCtrl = asyncHandler(
@@ -52,16 +58,40 @@ export const createOrderCtrl = asyncHandler(
         user.orders.push(order?._id);
         await user.save();
 
+        //Convert orderItems to have same structure that stripe wants
+        const convertedOrders =orderItems.map((item)=>
+        {
+            return {
+                price_data : {
+                    currency : "inr",
+                    product_data : {
+                        name : item?.name,
+                        description: item?.description,   
+                    },
+                    unit_amount : item?.price * 100,
+                },
+                quantity : item?.qty,
+            }
+        });
 
         //Make payment using stripe
+        const session = await stripe.checkout.sessions.create({
+            line_items : convertedOrders,
+            mode : 'payment',
+            success_url:'http://localhost:3000/success',
+            cancel_url:'http://localhost:3000/cancel',
+        });
+
+        res.send({url : session.url});
+
         //Payment webhook
         //Update user order
 
-        res.json({
-            success : true,
-            message : "Order created",
-            order,
-            user
-        });
+        // res.json({
+        //     success : true,
+        //     message : "Order created",
+        //     order,
+        //     user
+        // });
     }
 );
