@@ -162,7 +162,7 @@ export const getProductsCtrl = asyncHandler(
         }
 
         productQuery=productQuery.skip(startIndex).limit(limit);
-        const products = await productQuery;
+        const products = await productQuery.populate('reviews');
 
         res.json({
             status : "success",
@@ -178,7 +178,7 @@ export const getProductsCtrl = asyncHandler(
 export const getProductCtrl = asyncHandler(
     async (req , res) =>
     {
-        const product = await Product.findById(req.params.id);
+        const product = await Product.findById(req.params.id).populate("reviews");
 
         if(!product)
         {
