@@ -117,3 +117,22 @@ export const getSingleOrderCtrl = asyncHandler(
         });
     }
 );
+
+//API endpoint to update order : PUT /api/v1/orders/update/:id
+export const updateOrderCtrl = asyncHandler(
+    async(req , res) =>
+    {
+        const id = req.params.id;
+
+        //Update order
+        const updatedOrder = await Order.findByIdAndUpdate(id,{
+            status : req.body.status,
+        },{new : true});
+
+        res.status(200).json({
+            success : true,
+            message : "Order updated",
+            updatedOrder
+        })
+    }
+);
