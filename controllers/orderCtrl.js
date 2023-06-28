@@ -88,3 +88,12 @@ export const createOrderCtrl = asyncHandler(
         res.send({url : session.url});
     }
 );
+
+export const getAllordersCtrl = asyncHandler(
+    async(req , res) =>
+    {
+        res.json({
+            msg : "All orders"
+        })
+    }
+);
