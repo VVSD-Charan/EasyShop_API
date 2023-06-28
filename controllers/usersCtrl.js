@@ -71,14 +71,14 @@ export const loginUserCtrl = asyncHandler
 export const getUserProfileCtrl = asyncHandler(
     async (req , res) =>
     {
-        const token = getTokenFromHeader(req);
-        const verified = verifyToken(token);
+       //Find user
+       const user = await User.findById(req.userAuthId).populate('orders');
 
-        res.json(
-            {
-                msg : "Welcome to profile page!"
-            }
-        )
+       res.json({
+        status : "success",
+        message : "User profile fetched successfully",
+        user,
+       });
     }
 );
 
