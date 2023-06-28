@@ -77,21 +77,14 @@ export const createOrderCtrl = asyncHandler(
         //Make payment using stripe
         const session = await stripe.checkout.sessions.create({
             line_items : convertedOrders,
+            metadata : {
+                orderId : JSON.stringify(order?._id),
+            },
             mode : 'payment',
             success_url:'http://localhost:3000/success',
             cancel_url:'http://localhost:3000/cancel',
         });
 
         res.send({url : session.url});
-
-        //Payment webhook
-        //Update user order
-
-        // res.json({
-        //     success : true,
-        //     message : "Order created",
-        //     order,
-        //     user
-        // });
     }
 );
