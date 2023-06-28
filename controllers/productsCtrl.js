@@ -28,7 +28,7 @@ export const createProductCtrl = asyncHandler(
 
         //Check if brand exists
         const brandFound = await Brand.findOne({
-            name: brand.toLowerCase(),
+            name: brand?.toLowerCase(),
         });
         //If brand doesn't exists then ask user to create a brand
         if(!brandFound){
