@@ -38,3 +38,17 @@ export const createCouponCtrl = asyncHandler(
         });
     }
 );
+
+//API endpoint to get all coupons : GET /api/v1/coupons
+export const getAllCouponsCtrl = asyncHandler(
+    async(req , res) =>
+    {
+        const coupons = await Coupon.find();
+
+        res.status(200).json({
+            status : "success",
+            message : "All coupons",
+            coupons
+        });
+    }
+);

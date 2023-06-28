@@ -28,7 +28,8 @@ const CouponSchema = new Schema(
         },
     },
     {
-        timestamps : true
+        timestamps : true,
+        toJSON : {virtuals : true},
     }
 );
 
@@ -37,6 +38,14 @@ const CouponSchema = new Schema(
 CouponSchema.virtual("isExpired").get(function(){
     return this.endDate < Date.now();
 });
+
+//Get number of days left
+CouponSchema.virtual("daysLeft").get(function(){
+    const daysLeft = Math.ceil((this.endDate-Date.now())/(1000*60*60*24)) + " days Left";
+    return daysLeft;
+});
+
+
 
 //Validation to schema 
 //User cannot add end date which is before start date
