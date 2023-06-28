@@ -5,6 +5,7 @@ import Stripe from 'stripe';
 import Order from "../model/Order.js";
 import User from '../model/User.js';
 import Product from '../model/Product.js';
+import Coupon from '../model/Coupon.js';
 
 //Stripe instance
 const stripe = new Stripe(process.env.STRIPE_KEY);
@@ -13,6 +14,27 @@ const stripe = new Stripe(process.env.STRIPE_KEY);
 export const createOrderCtrl = asyncHandler(
     async(req , res) =>
     {
+
+        //Get coupon
+        const {coupon} =req?.query;
+
+        const couponFound =await Coupon.findOne({
+            code : coupon
+        }); 
+
+        if(couponFound?.isExpired)
+        {
+            throw new Error("Coupon has expired");
+        }
+        if(!couponFound)
+        {
+            throw new Error("Coupon doesn't exist");
+        }
+
+        //Get discount
+        const discount = couponFound? couponFound.discount/100 : 0;
+
+
         //Get payload (customer , orderItems,shipping address,totalprice)
         const { orderItems, shippingAddress,totalPrice } = req.body;
 
@@ -34,7 +56,7 @@ export const createOrderCtrl = asyncHandler(
             user : user?._id,
             orderItems,
             shippingAddress,
-            totalPrice
+            totalPrice : couponFound? totalPrice-totalPrice*discount:totalPrice
         });
 
         //Update product quantity
