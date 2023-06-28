@@ -52,3 +52,53 @@ export const getAllCouponsCtrl = asyncHandler(
         });
     }
 );
+
+//Get single coupon API end point GET /api/v1/coupons/:id
+export const getSingleCouponCtrl = asyncHandler(
+    async(req , res) =>
+    {
+        const coupon = await Coupon.findById(req.params.id);
+
+        res.json({
+            status : "success",
+            message : "Coupon is fetched successfully",
+            coupon
+        });
+    }
+);
+
+//Update coupon API end point PUT /api/v1/coupons/update/:id
+export const updateCouponCtrl = asyncHandler(
+    async(req , res) =>
+    {
+        const {code, startDate , endDate , discount} = req.body;
+        const coupon = await Coupon.findByIdAndUpdate(req.params.id,{
+            code : code?.toUpperCase(),
+            discount,
+            startDate,
+            endDate,
+        },{
+            new : true,
+        });
+
+        res.json({
+            status : "success",
+            message : "Coupon fetched successfully",
+            coupon
+        });
+    }
+);
+
+//Delete coupon API end point GET /api/v1/coupons/delete/:id
+export const deleteCouponCtrl = asyncHandler(
+    async(req , res) =>
+    {
+        const coupon =await Coupon.findByIdAndDelete(req.params.id);
+
+        res.json({
+            status : "success",
+            message : "Coupon has been deleted successfully",
+            coupon
+        });
+    }
+);
