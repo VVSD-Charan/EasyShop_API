@@ -89,6 +89,7 @@ export const createOrderCtrl = asyncHandler(
     }
 );
 
+//API end point to get all orders: GET /api/v1/orders
 export const getAllordersCtrl = asyncHandler(
     async(req , res) =>
     {
@@ -98,6 +99,21 @@ export const getAllordersCtrl = asyncHandler(
             success : true,
             message : "All orders",
             orders
+        });
+    }
+);
+
+//API end point to get a single order : /api/v1/orders/:id
+export const getSingleOrderCtrl = asyncHandler(
+    async(req , res) =>
+    {
+        const id = req.params.id;
+        const order= await Order.findById(id);
+
+        res.status(200).json({
+            success : true,
+            message : "Single order",
+            order,
         });
     }
 );
