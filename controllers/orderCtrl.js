@@ -92,8 +92,12 @@ export const createOrderCtrl = asyncHandler(
 export const getAllordersCtrl = asyncHandler(
     async(req , res) =>
     {
+        const orders = await Order.find();
+
         res.json({
-            msg : "All orders"
-        })
+            success : true,
+            message : "All orders",
+            orders
+        });
     }
 );
