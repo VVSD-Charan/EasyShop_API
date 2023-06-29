@@ -26,7 +26,7 @@ export const createOrderCtrl = asyncHandler(
         {
             throw new Error("Coupon has expired");
         }
-        if(!couponFound)
+        if(coupon.length>0 &&  !couponFound)
         {
             throw new Error("Coupon doesn't exist");
         }
@@ -156,5 +156,58 @@ export const updateOrderCtrl = asyncHandler(
             message : "Order updated",
             updatedOrder
         })
+    }
+);
+
+// API end point to get total sales sum /flex/sales/stats
+export const getOrderStatsCtrl = asyncHandler(
+    async(req , res)=>
+    {
+
+        const orders = await Order.aggregate([
+            {
+                $group : {
+                    _id : null,
+                    minimumSale : {
+                        $min : "$totalPrice",
+                    },
+                    totalSales : {
+                        $sum : "$totalPrice",
+                    },
+                    maxSale : {
+                        $max : "$totalPrice",
+                    },
+                    avgSale : {
+                        $avg : "$totalPrice",
+                    },
+                }
+            }
+        ]);
+
+        //Get todays sales
+        const date=new Date();
+        const today = new Date(date.getFullYear(),date.getMonth(),date.getDate());
+
+        const saleToday = await Order.aggregate([{
+            $match : {
+                createdAt : {
+                    $gte : today,
+                },
+            },
+        },{
+            $group : {
+                _id : null,
+                totalSales : {
+                    $sum : "$totalPrice"
+                }
+            }
+        }])
+
+        res.status(200).json({
+            success : true,
+            message : "Sum , Minimum and maximum sales fetched",
+            orders,
+            saleToday
+        });
     }
 );
