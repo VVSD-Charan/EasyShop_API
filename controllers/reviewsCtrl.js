@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler';
 import Review from "../model/Review.js";
 import Product from '../model/Product.js';
 
+//API end point to create review : POST /flex/reviews
 export const createReviewCtrl = asyncHandler(
     async(req , res) =>
     {

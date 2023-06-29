@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import Coupon from "../model/Coupon.js";
 
-//API end point to create coupon : POST /api/v1/coupons
+//API end point to create coupon : POST /flex/coupons
 export const createCouponCtrl = asyncHandler(
     async (req , res) =>
     {
@@ -39,7 +39,7 @@ export const createCouponCtrl = asyncHandler(
     }
 );
 
-//API endpoint to get all coupons : GET /api/v1/coupons
+//API endpoint to get all coupons : GET /flex/coupons
 export const getAllCouponsCtrl = asyncHandler(
     async(req , res) =>
     {
@@ -53,7 +53,7 @@ export const getAllCouponsCtrl = asyncHandler(
     }
 );
 
-//Get single coupon API end point GET /api/v1/coupons/:id
+//Get single coupon API end point GET /flex/coupons/:id
 export const getSingleCouponCtrl = asyncHandler(
     async(req , res) =>
     {
@@ -67,7 +67,7 @@ export const getSingleCouponCtrl = asyncHandler(
     }
 );
 
-//Update coupon API end point PUT /api/v1/coupons/update/:id
+//Update coupon API end point PUT /flex/coupons/update/:id
 export const updateCouponCtrl = asyncHandler(
     async(req , res) =>
     {
@@ -89,7 +89,7 @@ export const updateCouponCtrl = asyncHandler(
     }
 );
 
-//Delete coupon API end point GET /api/v1/coupons/delete/:id
+//Delete coupon API end point GET /flex/coupons/delete/:id
 export const deleteCouponCtrl = asyncHandler(
     async(req , res) =>
     {

@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import Category from "../model/Category.js";
 
-// category endpoint POST /api/v1/categories
+// category endpoint POST /flex/categories
 
 export const createCategoryCtrl = asyncHandler(
     async (req , res) =>
@@ -33,7 +33,7 @@ export const createCategoryCtrl = asyncHandler(
     }
 ) ;
 
-// Get all categories API end point : GET /api/v1/categories
+// Get all categories API end point : GET /flex/categories
 export const getAllCategoriesCtrl = asyncHandler (
     async (req , res) =>
     {
@@ -47,7 +47,7 @@ export const getAllCategoriesCtrl = asyncHandler (
     }
 );
 
-// Get single category API end point: GET /api/v1/categories/:id
+// Get single category API end point: GET /flex/categories/:id
 export const getSingleCategoryCtrl = asyncHandler(
     async ( req , res) =>
     {
@@ -61,7 +61,7 @@ export const getSingleCategoryCtrl = asyncHandler(
     }
 );
 
-//Update category endpoint PUT /api/v1/categories/:id
+//Update category endpoint PUT /flex/categories/:id
 export const updateCategoryCtrl = asyncHandler (
     async ( req , res) =>
     {
@@ -77,7 +77,7 @@ export const updateCategoryCtrl = asyncHandler (
     }
 );
 
-// Delete category API end point DELETE /api/v1/categories/:id
+// Delete category API end point DELETE /flex/categories/:id
 export const deleteCategoryCtrl = asyncHandler(
     async (req , res) =>
     {

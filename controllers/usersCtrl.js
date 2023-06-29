@@ -5,7 +5,7 @@ import generateToken from "../utils/generateToken.js";
 import { getTokenFromHeader } from "../utils/getTokenFromHeader.js";
 import { verifyToken } from "../utils/verifyToken.js";
 
-// Register user router route end point : POST /api/v1/users/register
+// Register user router route end point : POST /flex/users/register
 export const registerUserCtrl = asyncHandler(
     async( req , res) =>
     {
@@ -42,7 +42,7 @@ export const registerUserCtrl = asyncHandler(
 }
 );
 
-// Login user router route end point : POST /api/v1/users/login
+// Login user router route end point : POST /flex/users/login
 export const loginUserCtrl = asyncHandler
 (
     async (req , res) =>
@@ -82,7 +82,7 @@ export const getUserProfileCtrl = asyncHandler(
     }
 );
 
-// API end point to update shipping address PUT /api/v1/users/update/shipping
+// API end point to update shipping address PUT /flex/users/update/shipping
 export const updateShippingAddressCtrl = asyncHandler(
     async(req , res) =>
     {

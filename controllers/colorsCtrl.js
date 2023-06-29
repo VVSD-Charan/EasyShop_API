@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import Color from '../model/Color.js';
 
-// Colors endpoint POST /api/v1/colors
+// Colors endpoint POST /flex/colors
 
 export const createColorCtrl = asyncHandler(
     async (req , res) =>
@@ -31,7 +31,7 @@ export const createColorCtrl = asyncHandler(
     }
 ) ;
 
-// Get all categories API end point : GET /api/v1/colors
+// Get all categories API end point : GET /flex/colors
 export const getAllColorsCtrl = asyncHandler (
     async (req , res) =>
     {
@@ -45,7 +45,7 @@ export const getAllColorsCtrl = asyncHandler (
     }
 );
 
-// Get single Color API end point: GET /api/v1/colors/:id
+// Get single Color API end point: GET /flex/colors/:id
 export const getSingleColorCtrl = asyncHandler(
     async ( req , res) =>
     {
@@ -59,7 +59,7 @@ export const getSingleColorCtrl = asyncHandler(
     }
 );
 
-//Update Color endpoint PUT /api/v1/colors/:id
+//Update Color endpoint PUT /flex/colors/:id
 export const updateColorCtrl = asyncHandler (
     async ( req , res) =>
     {
@@ -75,7 +75,7 @@ export const updateColorCtrl = asyncHandler (
     }
 );
 
-// Delete Color API end point DELETE /api/v1/colors/:id
+// Delete Color API end point DELETE /flex/colors/:id
 export const deleteColorCtrl = asyncHandler(
     async (req , res) =>
     {

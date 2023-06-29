@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import Brand from '../model/Brand.js';
 
-// category endpoint POST /api/v1/categories
+// category endpoint POST /flex/categories
 
 export const createBrandCtrl = asyncHandler(
     async (req , res) =>
@@ -31,7 +31,7 @@ export const createBrandCtrl = asyncHandler(
     }
 ) ;
 
-// Get all categories API end point : GET /api/v1/categories
+// Get all categories API end point : GET /flex/categories
 export const getAllBrandsCtrl = asyncHandler (
     async (req , res) =>
     {
@@ -45,7 +45,7 @@ export const getAllBrandsCtrl = asyncHandler (
     }
 );
 
-// Get single category API end point: GET /api/v1/categories/:id
+// Get single category API end point: GET /flex/categories/:id
 export const getSingleBrandCtrl = asyncHandler(
     async ( req , res) =>
     {
@@ -59,7 +59,7 @@ export const getSingleBrandCtrl = asyncHandler(
     }
 );
 
-//Update category endpoint PUT /api/v1/categories/:id
+//Update category endpoint PUT /flex/categories/:id
 export const updateBrandCtrl = asyncHandler (
     async ( req , res) =>
     {
@@ -75,7 +75,7 @@ export const updateBrandCtrl = asyncHandler (
     }
 );
 
-// Delete category API end point DELETE /api/v1/categories/:id
+// Delete category API end point DELETE /flex/categories/:id
 export const deleteBrandCtrl = asyncHandler(
     async (req , res) =>
     {

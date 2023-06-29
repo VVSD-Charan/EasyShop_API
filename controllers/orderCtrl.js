@@ -10,7 +10,7 @@ import Coupon from '../model/Coupon.js';
 //Stripe instance
 const stripe = new Stripe(process.env.STRIPE_KEY);
 
-//Endpoint for orders /api/v1/orders
+//Endpoint for orders /flex/orders
 export const createOrderCtrl = asyncHandler(
     async(req , res) =>
     {
@@ -111,7 +111,7 @@ export const createOrderCtrl = asyncHandler(
     }
 );
 
-//API end point to get all orders: GET /api/v1/orders
+//API end point to get all orders: GET /flex/orders
 export const getAllordersCtrl = asyncHandler(
     async(req , res) =>
     {
@@ -125,7 +125,7 @@ export const getAllordersCtrl = asyncHandler(
     }
 );
 
-//API end point to get a single order : /api/v1/orders/:id
+//API end point to get a single order : /flex/orders/:id
 export const getSingleOrderCtrl = asyncHandler(
     async(req , res) =>
     {
@@ -140,7 +140,7 @@ export const getSingleOrderCtrl = asyncHandler(
     }
 );
 
-//API endpoint to update order : PUT /api/v1/orders/update/:id
+//API endpoint to update order : PUT /flex/orders/update/:id
 export const updateOrderCtrl = asyncHandler(
     async(req , res) =>
     {

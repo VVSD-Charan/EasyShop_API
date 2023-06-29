@@ -4,7 +4,7 @@ import Category from "../model/Category.js";
 import Brand from "../model/Brand.js";
 
 // Create new products
-// POST/api/v1/products
+// POST/flex/products
 export const createProductCtrl = asyncHandler(
     async (req , res) =>
     {
@@ -77,6 +77,7 @@ export const createProductCtrl = asyncHandler(
     }
 );
 
+//API end point for get products GET /flex/products
 export const getProductsCtrl = asyncHandler(
     async (req , res) =>
     {
@@ -178,6 +179,7 @@ export const getProductsCtrl = asyncHandler(
     }
 );
 
+// API endpoint for get single product GET /flex/products/:id
 export const getProductCtrl = asyncHandler(
     async (req , res) =>
     {
@@ -196,6 +198,8 @@ export const getProductCtrl = asyncHandler(
     }
 ); 
 
+
+//API end point to update product : PUT /flex/products/:id
 export const updateProductCtrl = asyncHandler(
     async (req , res) =>
     {
@@ -234,6 +238,8 @@ export const updateProductCtrl = asyncHandler(
     }
 );
 
+
+//API endpoint to delete product : DELETE /flex/products/:id/delete
 export const deleteProductCtrl = asyncHandler(
     async(req , res) => {
         const product = await Product.findByIdAndDelete(req.params.id);
