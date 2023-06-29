@@ -15,7 +15,6 @@ const CategorySchema = new Schema(
          },
          image : {
             type : String ,
-            default : "http://picsum.photos/200/300",
             required : true,
          },
          products : [

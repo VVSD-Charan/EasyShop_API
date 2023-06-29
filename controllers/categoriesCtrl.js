@@ -22,6 +22,7 @@ export const createCategoryCtrl = asyncHandler(
         const category = await Category.create({
             name : name.toLowerCase() ,
             user : req.userAuthId,
+            image : req.file.path,
         });
 
         res.json({
