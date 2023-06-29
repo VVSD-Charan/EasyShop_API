@@ -8,6 +8,8 @@ import Brand from "../model/Brand.js";
 export const createProductCtrl = asyncHandler(
     async (req , res) =>
     {
+        const convertedImgs = req.files.map((file) => file?.path)
+        console.log(convertedImgs);
         const {
             name,
             description,
@@ -55,6 +57,7 @@ export const createProductCtrl = asyncHandler(
             price,
             totalQty,
             brand,
+            images : convertedImgs
         })
 
         // Push product into category
